@@ -74,6 +74,14 @@
   register: result
   until: result|succeeded
   retries: 5
+  when: ansible_os_family == 'Debian'
+
+- name: install rsync
+  yum: pkg=rsync
+  register: result
+  until: result|succeeded
+  retries: 5
+  when: ansible_os_family == 'RedHat'
 
 - template: src=etc/rsyncd.conf dest=/etc/rsyncd.conf owner=root
             group=root mode=0644
@@ -82,6 +90,7 @@
 - lineinfile: dest=/etc/default/rsync regexp=^RSYNC_ENABLE
               line=RSYNC_ENABLE=true
   notify: restart rsync
+  when: ansible_os_family == 'Debian'
 
 - name: configure dispersion tools
   template: src=etc/swift/dispersion.conf dest=/etc/swift/dispersion.conf
@@ -101,6 +110,16 @@
 
 - name: include swift warning in message of the day
   template: src=etc/update-motd.d/99-swift-motd dest=/etc/update-motd.d/99-swift-motd mode=0755
+  when: ansible_os_family == 'Debian'
+
+- name: include swift warning in message of the day
+  blockinfile:
+    destfile: /etc/motd
+    block: |
+      WARNING Swift node -- do not replace disks without consulting Swift specific procedures
+    marker: ""
+    insertafter: EOF
+  when: ansible_os_family == 'RedHat'
 
 - name: system tuning recommendations for swift per deployment guide
   sysctl: name={{ item.key }} value={{ item.value }}

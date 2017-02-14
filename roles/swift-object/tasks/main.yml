@@ -4,6 +4,11 @@
   register: result
   until: result|succeeded
   retries: 5
+  when: ansible_os_family == 'Debian'
+
+- name: install xfsprogs
+  yum: pkg=xfsprogs
+  when: ansible_os_family == 'RedHat'
 
 - name: swift-object service scripts
   upstart_service: name=swift-{{ item.name }}
@@ -16,6 +21,7 @@
     - { name: object-auditor }
     - { name: object-replicator }
     - { name: object-updater }
+  when: ansible_os_family == 'Debian'
 
 - stat: path=/etc/swift/object.ring.gz
   register: object_ring
