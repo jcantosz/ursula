@@ -10,6 +10,7 @@
     - { name: container-replicator }
     - { name: container-sync }
     - { name: container-updater }
+  when: ansible_os_family == 'Debian'
 
 - stat: path=/etc/swift/container.ring.gz
   register: container_ring

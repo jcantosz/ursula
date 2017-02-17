@@ -23,6 +23,7 @@ dependencies:
   - role: openstack-distro
     project_name: swift
     dependent_packages:
+      - git
       - openstack-swift
       - openstack-swift-proxy
       - openstack-swift-account

@@ -113,12 +113,9 @@
   when: ansible_os_family == 'Debian'
 
 - name: include swift warning in message of the day
-  blockinfile:
+  lineinfile:
     destfile: /etc/motd
-    block: |
-      WARNING Swift node -- do not replace disks without consulting Swift specific procedures
-    marker: ""
-    insertafter: EOF
+    line: WARNING Swift node -- do not replace disks without consulting Swift specific procedures
   when: ansible_os_family == 'RedHat'
 
 - name: system tuning recommendations for swift per deployment guide
@@ -127,6 +124,13 @@
 
 - name: disable swift directory parsing by updatedb
   command: updatedb -e /srv/node
+  when: ansible_os_family == 'Debian'
+
+- name: ensure mlocate is not installed
+  yum:
+    pkg: mlocate
+    state: absent
+  when: ansible_os_family == 'RedHat'
 
 - include: serverspec.yml
   tags:

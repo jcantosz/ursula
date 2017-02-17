@@ -1,5 +1,5 @@
 ---
-- name: swift-account service scripts
+- name: swift-account service scripts (ubuntu)
   upstart_service: name=swift-{{ item.name }} 
                    cmd=/usr/local/bin/swift-{{ item.cmd|default(item.name) }}
                    args=/etc/swift/account-server.conf
@@ -9,6 +9,7 @@
     - { name: account-auditor }
     - { name: account-reaper }
     - { name: account-replicator }
+  when: ansible_os_family == 'Debian'
 
 - stat: path=/etc/swift/account.ring.gz
   register: account_ring

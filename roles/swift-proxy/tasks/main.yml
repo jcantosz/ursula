@@ -1,13 +1,24 @@
 ---
-- name: permit swift proxy from anywhere
+- name: permit swift proxy from anywhere (ubuntu)
   ufw: rule=allow to_port=8090 proto=tcp
   tags: firewall
+  tags: ufw
+  when: ansible_os_family == 'Debian'
+
+- name: permit swift proxy from anywhere (rhel)
+  firewalld:
+    port: 8090/tcp
+    state: enabled
+    permanent: true
+  tags: firewall
+  when: ansible_os_family == 'RedHat'
 
 - name: swift-proxy service script
   upstart_service: name=swift-proxy
                    cmd=/usr/local/bin/swift-proxy-server
                    args=/etc/swift/proxy-server.conf
                    user=swift
+  when: ansible_os_family == 'Debian'
 
 - stat: path=/etc/swift/object.ring.gz
   register: object_ring
