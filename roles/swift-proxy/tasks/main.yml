@@ -51,4 +51,8 @@
 
 - name: start swift-proxy services
   service: name=swift-proxy state=started
-  when: start_proxy|bool
+  when: start_proxy|bool and ansible_os_family == 'Debian'
+
+- name: start swift-proxy services
+  service: name=openstack-swift-proxy state=started
+  when: start_proxy|bool and ansible_os_family == 'RedHat'

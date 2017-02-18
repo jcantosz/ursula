@@ -4,9 +4,9 @@
     name: "{{ item }}"
     state: restarted
   with_items:
-    - swift-container
-    - swift-container-auditor
-    - swift-container-replicator
-    - swift-container-sync
-    - swift-container-updater
+    - "{{ (ansible_os_family == 'RedHat') | ternary('openstack-','') }}swift-container"
+    - "{{ (ansible_os_family == 'RedHat') | ternary('openstack-','') }}swift-container-auditor"
+    - "{{ (ansible_os_family == 'RedHat') | ternary('openstack-','') }}swift-container-replicator"
+    - "{{ (ansible_os_family == 'RedHat') | ternary('openstack-','') }}swift-container-sync"
+    - "{{ (ansible_os_family == 'RedHat') | ternary('openstack-','') }}swift-container-updater"
   when: start_container|bool

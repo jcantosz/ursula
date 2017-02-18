@@ -76,4 +76,14 @@
     - swift-object-expirer
     - swift-object-updater
     - swift-object-auditor
-  when: start_object|bool
+  when: start_object|bool and ansible_os_family == 'Debian'
+
+- name: start swift-object services
+  service: name={{ item }} state=started
+  with_items:
+    - openstack-swift-object-replicator
+    - openstack-swift-object
+    - openstack-swift-object-expirer
+    - openstack-swift-object-updater
+    - openstack-swift-object-auditor
+  when: start_object|bool and ansible_os_family == 'RedHat'

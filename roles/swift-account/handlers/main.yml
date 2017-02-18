@@ -4,8 +4,8 @@
     name: "{{ item }}"
     state: restarted
   with_items:
-    - swift-account
-    - swift-account-auditor
-    - swift-account-reaper
-    - swift-account-replicator
+    - "{{ (ansible_os_family == 'RedHat') | ternary('openstack-', '') }}swift-account"
+    - "{{ (ansible_os_family == 'RedHat') | ternary('openstack-', '') }}swift-account-auditor"
+    - "{{ (ansible_os_family == 'RedHat') | ternary('openstack-', '') }}swift-account-reaper"
+    - "{{ (ansible_os_family == 'RedHat') | ternary('openstack-', '') }}swift-account-replicator"
   when: start_account|bool

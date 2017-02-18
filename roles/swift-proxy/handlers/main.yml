@@ -1,6 +1,6 @@
 ---
 - name: restart swift-proxy service
-  service: name=swift-proxy state=restarted
+  service: name="{{ (ansible_os_family == 'RedHat') | ternary('openstack-', '') }}swift-proxy" state=restarted
   when: start_proxy|bool
 
 - name: restart haproxy

@@ -41,4 +41,14 @@
     - swift-container-replicator
     - swift-container-sync
     - swift-container-updater
-  when: start_container|bool
+  when: start_container|bool and ansible_os_family == 'Debian'
+
+- name: start swift-container services
+  service: name={{ item }} state=started
+  with_items:
+    - openstack-swift-container
+    - openstack-swift-container-auditor
+    - openstack-swift-container-replicator
+#   - openstack-swift-container-sync
+    - openstack-swift-container-updater
+  when: start_container|bool and ansible_os_family == 'RedHat'

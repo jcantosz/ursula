@@ -39,4 +39,14 @@
     - swift-account-auditor
     - swift-account-reaper
     - swift-account
-  when: start_account|bool
+  when: start_account|bool and ansible_os_family == 'Debian'
+
+
+- name: start swift-account services
+  service: name={{ item }} state=started
+  with_items:
+    - openstack-swift-account-replicator
+    - openstack-swift-account-auditor
+    - openstack-swift-account-reaper
+    - openstack-swift-account
+  when: start_account|bool and ansible_os_family == 'RedHat'
