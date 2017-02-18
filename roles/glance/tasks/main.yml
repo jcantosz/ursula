@@ -43,6 +43,12 @@
     - etype: other
       permission: r
 
+- name: install bbc glance plugins
+  pip:
+    name: "git+git://github.com/blueboxgroup/bbc-openstack-plugins.git#egg=bbc_openstack_plugins"
+    state: present
+  when: os == 'rhel'
+
 # FIXME - Probably do not need this as we now overwriting systemd
 #Glance-manage in OSP is creating the api.log with incorrect permissions
 # this prohibits glance-api from starting
