@@ -16,3 +16,12 @@ cd Python-2.7.9/
 make
 make install
 
+virtualenv -p ${DIR}/.localpython/bin/python  /home/${USER}/venv
+
+cd $DIR/venv/bin
+source ./activate
+
+python --version
+
+pip install -r $DIR/../requirements.txt
+
