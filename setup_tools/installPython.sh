@@ -16,6 +16,15 @@ cd Python-2.7.9/
 make
 make install
 
+echo "Install ven"
+cd ~/src
+wget http://pypi.python.org/packages/source/v/virtualenv/virtualenv-1.5.2.tar.gz#md5=fbcefbd8520bb64bc24a560c6019a73c
+tar -zxvf virtualenv-1.5.2.tar.gz
+
+cd virtualenv-1.5.2/
+~/.localpython/bin/python setup.py install
+
+echo "Make venv"
 virtualenv -p ${DIR}/.localpython/bin/python  /home/${USER}/venv
 
 cd $DIR/venv/bin
