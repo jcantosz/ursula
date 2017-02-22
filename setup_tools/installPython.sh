@@ -26,10 +26,9 @@ cd virtualenv-1.5.2/
 $DIR/.localpython/bin/python setup.py install
 
 echo "Make venv"
-virtualenv -p ${DIR}/.localpython/bin/python  /home/${USER}/venv
+virtualenv -p ${DIR}/.localpython/bin/python  $DIR/venv
 
-cd $DIR/venv/bin
-source ./activate
+source $DIR/venv/bin/activate
 
 python --version
 
