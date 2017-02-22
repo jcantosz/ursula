@@ -3,10 +3,10 @@
 CURR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 DIR="$(dirname "$CURR")"
 
-virtualenv -p ${DIR}/.localpython/bin/python  /home/${USER}/venv
+virtualenv -p ${DIR}/.localpython/bin/python  $DIR/venv
 
-cd $DIR/venv/bin
-source ./activate
+
+source $DIR/venv/bin/activate
 
 python --version
 
