@@ -10,5 +10,5 @@ source ./activate
 
 python --version
 
-pip install -r $DIR/../requirements.txt
+pip install -r $DIR/requirements.txt
 
