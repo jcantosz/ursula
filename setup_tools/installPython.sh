@@ -16,21 +16,3 @@ cd Python-2.7.9/
 ./configure --prefix=${DIR}/.localpython  --enable-ipv6
 make
 make install
-
-echo "Install venv"
-cd $DIR/src
-wget http://pypi.python.org/packages/source/v/virtualenv/virtualenv-1.5.2.tar.gz#md5=fbcefbd8520bb64bc24a560c6019a73c
-tar -zxvf virtualenv-1.5.2.tar.gz
-
-cd virtualenv-1.5.2/
-$DIR/.localpython/bin/python setup.py install
-
-echo "Make venv"
-virtualenv -p ${DIR}/.localpython/bin/python  $DIR/venv
-
-source $DIR/venv/bin/activate
-
-python --version
-
-pip install -r $DIR/requirements.txt
-
